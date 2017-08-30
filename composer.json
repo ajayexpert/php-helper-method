@@ -2,6 +2,7 @@
     "name": "ajayexpert/php-helper-method",
     "type": "library",
     "description": "php helper functions",
+    "license": "MIT",
     "homepage": "https://github.com/ajayexpert/php-helper-method",
     "authors": [
         {
@@ -12,6 +13,7 @@
     "require": {
     	"php": ">=5.3.0"
     },
+    "minimum-stability": "stable",
     "autoload": {
         "files": [
             "app/Http/Helpers/Helpers.php"
