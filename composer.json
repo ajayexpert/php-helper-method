@@ -14,7 +14,7 @@
     },
     "autoload": {
         "files": [
-            "app/Http/Helpers/Helpers.php", 
+            "app/Http/Helpers/Helpers.php"
         ]
     }
 }
