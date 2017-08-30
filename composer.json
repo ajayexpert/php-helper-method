@@ -16,7 +16,7 @@
     "minimum-stability": "stable",
     "autoload": {
         "files": [
-            "app/Http/Helpers/Helpers.php"
+            "helpers.php"
         ]
     }
 }
