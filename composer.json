@@ -1,0 +1,11 @@
+{
+    "name": "ajayexpert/php-helper-method",
+    "description": "php helper functions",
+    "authors": [
+        {
+            "name": "Ajay Kumar",
+            "email": "ajay.expert@live.com"
+        }
+    ],
+    "require": {}
+}
