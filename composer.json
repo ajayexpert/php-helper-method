@@ -1,11 +1,20 @@
 {
     "name": "ajayexpert/php-helper-method",
+    "type": "library",
     "description": "php helper functions",
+    "homepage": "https://github.com/ajayexpert/php-helper-method",
     "authors": [
         {
             "name": "Ajay Kumar",
             "email": "ajay.expert@live.com"
         }
     ],
-    "require": {}
+    "require": {
+    	"php": ">=5.3.0"
+    },
+    "autoload": {
+        "files": [
+            "app/Http/Helpers/Helpers.php", 
+        ]
+    }
 }
