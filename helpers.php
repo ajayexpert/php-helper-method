@@ -1,6 +1,20 @@
 <?php 
 
-function splitName($name)
+/*
+
+	this function is to split full name string
+	into two part first name and last name
+	
+	like :
+
+	$fullname = "Ajay Kumar";
+	$name = split_name($fullname);
+	echo $name['firstname']; // Ajay 
+	echo $name['lastname']; // Kumar 
+
+*/
+
+function split_name($name)
 {
 	$parts = explode(" ", $name);
 	$lastname = array_pop($parts);
@@ -10,7 +24,23 @@ function splitName($name)
 
 
 
-function filePath($path)
+/*
+	Suppose you have a file name and want to know where is located and file name and extension of file so this function will help you like : 
+
+	$path  = 'var/tr/img/hotel_the_cliff_bay_spa_suite_2048x1310.jpg';
+	$info = file_path($path);
+
+	`$info` has array with some data 
+
+	// array:4 [
+	//   "dirname" => "var/tr/img"
+	//   "basename" => "hotel_the_cliff_bay_spa_suite_2048x1310.jpg"
+	//   "extension" => "jpg"
+	//   "filename" => "hotel_the_cliff_bay_spa_suite_2048x1310"
+	// ]
+*/
+
+function file_path($path)
 {
 	$fileParts = pathinfo($path);
 
@@ -27,7 +57,18 @@ function filePath($path)
 
 
 
-function extractInt($string)
+/*
+	a variable contain string but in string 
+	has some number or integer and some time 
+	we want to have that number so this function will help in it.
+
+	for example : 
+
+	$string = '+ 9876543210';
+	$number = extract_int($string);
+	echo $number; // 9876543210;
+*/
+function extract_int($string)
 {
 	return (int) filter_var($string, FILTER_SANITIZE_NUMBER_INT);
 }
@@ -49,69 +90,128 @@ function statusBool($status)
 }
 
 
+
+/*
+	This method give a unique number token
+
+	echo uid(); // 150419499964660 random every time
+*/
 function uid()
 {
-	return time().rand(1000,99999);
+	return intval(time().rand(1000,99999));
 }
 
 
-
-function newToken()
+/*
+	This method will give a unique token string 
+	echo new_token(); // "9428575ccc20aaf7728a4bf710343437" 
+*/
+function new_token()
 {
 	return mycrypt(uid());
 }
 
 
+/*
+	This method to encrypt any string like name or else, 
+	but it won't decrypt or it genrate random hash every 
+	time to same value. 
+
+	for example : 
+
+	echo mycrypt('foo bar'); // "dcc8e2090a73ddd93bd16e5069242e76"
+
+
+*/
 function mycrypt($value = '')
 {
 	return md5(uniqid(rand(), true).bin2hex(mcrypt_create_iv(22, MCRYPT_DEV_URANDOM)).$value);
 }
 
-function myencrypt($value)
+
+/*
+	to encrypt any value to short and it can be decryptable
+	for example 
+	
+	echo myencrypt('foo', 'bar'); // k/JUkkgBuLDwAFcd/YxKXg==
+*/
+function myencrypt($value, $salt = '')
 {
 	// return base64_encode($value.'fgf_salt');
-	return openssl_encrypt($value,"AES-128-ECB",'FGF');
+	return openssl_encrypt($value,"AES-128-ECB", $salt);
 }
 
-function mydecrypt($value)
+
+
+/*
+	This is the decrypt method to `myencrypt()`
+
+	for example : 
+
+	echo mydecrypt('k/JUkkgBuLDwAFcd/YxKXg==', 'bar'); // foo
+
+*/
+function mydecrypt($value, $salt = '')
 {
 	// return str_replace('fgf_salt', '', base64_decode($value));
-	return openssl_decrypt($value,"AES-128-ECB",'FGF');
+	return openssl_decrypt($value,"AES-128-ECB", $salt);
 }
 
 
+/*
+	this function to clean any special chars from string 
+
+	for example : 
+
+	echo clean('foo^&&^%**'); // foo
+
+*/
 function clean($string) {
 	 $string = str_replace(' ', '-', $string); // Replaces all spaces with hyphens.
 	 $string = preg_replace('/[^A-Za-z0-9\-]/', '', $string); // Removes special chars.
 	 return preg_replace('/-+/', '-', $string); // Replaces multiple hyphens with single one.
 }
 
- 
-function removeAndSym($string){
-	if (findWord('&amp;', $string)) {
-		$string = str_replace( "&amp;", "&", $string);
-		return removeAndSym($string);
-	}else{
-		return $string;
-	}
-}
 
 
+/*
+	This method to add percent to current value
 
-function addPercent($value, $per)
+	example : 
+
+	echo add_percent(88, 10); // 88
+
+*/
+function add_percent($value, $per)
 {
 	return $value+(($value*$per)/100);
 }
 
 
+/*
+	This method to show all file and dir of given path in array
 
-function listFolderFiles($dir){
+	Example : 
+	
+	$lists = list_folder_files('storage');
+	
+	`$lists contain an array for all files of every sub folder`
+	// array:27 [
+			  1 => "/var/www/html/storage/doc/media/stylesheet.css"
+			  2 => "/var/www/html/storage/JSON.php"
+			  3 => "/var/www/html/storage/Test-JSON.php"
+			  4 => "/var/www/html/storage/LICENSE"
+			]	
+
+*/
+
+function list_folder_files($dir){
 	$ffs = scandir($dir);
 	$result = [];
 	foreach($ffs as $ff){
 		if($ff != '.' && $ff != '..'){
 			if(is_dir($dir.'/'.$ff)){
-				$resultTemp = listFolderFiles($dir.'/'.$ff);
+				$resultTemp = list_folder_files($dir.'/'.$ff);
 				$result = array_merge($resultTemp, $result);
 
 			}else{
