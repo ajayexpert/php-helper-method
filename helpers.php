@@ -173,6 +173,13 @@ function clean($string) {
 }
 
 
+function clean_html($html)
+{
+	$html = preg_replace("/<([a-z][a-z0-9]*)[^>]*?(\/?)>/i",'<$1$2>', $html);
+	$html = preg_replace('#<script(.*?)>(.*?)</script>#is', '', $html);
+	return $html;
+}
+
 
 /*
 	This method to add percent to current value
