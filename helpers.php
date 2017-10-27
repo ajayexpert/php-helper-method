@@ -815,6 +815,12 @@ if (! function_exists('date_formatter')) {
 }
 
 
+if (! function_exists('time_formatter')) {
+	function time_formatter($time, $timeformat = 'g:i A'){
+		return date($timeformat, strtotime($time));
+	}
+}
+
 
 if (! function_exists('getDateTime')) {
 
@@ -832,14 +838,15 @@ if (! function_exists('getDateTime')) {
 */
 if (! function_exists('convertInHourMin')) {
 
-	function convertInHourMin($time){
+	function convertInHourMin($time, $hour = 'hr', $min = 'min'){
 		$timeArray = explode(':', $time);
+		
 		if (isset($timeArray[0]) && isset($timeArray[1])) {
-			$hour = +$timeArray[0]." h ";
-			$min = +$timeArray[1] == 0 ? '' : $timeArray[1].' min';
-
+			$hour = +$timeArray[0]." ".$hour." ";
+			$min = +$timeArray[1] == 0 ? '' : $timeArray[1].' '.$min;
 			return $hour.$min;
 		}
+
 		return null;
 	}
 }
