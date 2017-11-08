@@ -513,6 +513,18 @@ if (! function_exists('parameterize_array')) {
 	}
 }
 
+if (! function_exists('implode_as_word')) {
+	function implode_as_word($glue, $pieces, $lGlue = null)
+	{
+		$lGlue = is_null($lGlue) ? $glue : $lGlue;
+
+		$last = array_pop($pieces);
+		$output = implode(', ', $pieces);
+		if (strlen($output)) $output .= $lGlue;
+		$output .= $last;
+		return $output;
+	}
+}
 
 if (! function_exists('implode_kv')) {
 
