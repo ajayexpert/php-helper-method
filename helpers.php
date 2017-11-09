@@ -18,8 +18,14 @@ if (! function_exists('split_name')) {
 	function split_name($name)
 	{
 		$parts = explode(" ", $name);
-		$lastname = array_pop($parts);
-		$firstname = implode(" ", $parts);
+		if(count($parts) == 1) {
+			$lastname = $parts[0];
+			$firstname = '';
+		}
+		else{
+			$lastname = array_pop($parts);
+			$firstname = implode(" ", $parts);
+		}
 		return ['firstname' => $firstname, 'lastname' => $lastname];
 	}
 }
