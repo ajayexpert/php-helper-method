@@ -19,8 +19,8 @@ if (! function_exists('split_name')) {
 	{
 		$parts = explode(" ", $name);
 		if(count($parts) == 1) {
-			$lastname = $parts[0];
-			$firstname = '';
+			$firstname = $parts[0];
+			$lastname = '';
 		}
 		else{
 			$lastname = array_pop($parts);
